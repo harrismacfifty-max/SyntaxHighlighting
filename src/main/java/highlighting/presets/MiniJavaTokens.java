@@ -21,7 +21,7 @@ public final class MiniJavaTokens {
 
         // Normale Block-Kommentare, auch über mehrere Zeilen.
         Token.of(
-            Pattern.compile("/\\*.*?\\*/", Pattern.DOTALL),
+            Pattern.compile("/\\*(?!\\*).*?\\*/", Pattern.DOTALL),
             MiniJavaColours.BLOCK_COMMENT_COLOUR),
 
         // Zeilenkommentare bis zum Zeilenende.
@@ -34,9 +34,7 @@ public final class MiniJavaTokens {
         Token.of(Pattern.compile("'([^'\\\\]|\\\\.)'"), MiniJavaColours.CHAR_LITERAL_COLOUR),
 
         // Annotationen wie @Override, @Test, @Deprecated.
-        Token.of(
-            Pattern.compile("@[A-Za-z_$][A-Za-z0-9_$]*"),
-            MiniJavaColours.ANNOTATION_COLOUR),
+        Token.of(Pattern.compile("@[A-Za-z_$][A-Za-z0-9_$]*"), MiniJavaColours.ANNOTATION_COLOUR),
 
         // Java-Keywords. Wortgrenzen verhindern Treffer innerhalb längerer Identifier.
         Token.of(
