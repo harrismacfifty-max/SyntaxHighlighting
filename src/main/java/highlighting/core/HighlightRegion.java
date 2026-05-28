@@ -17,7 +17,7 @@ public final class HighlightRegion {
   public HighlightRegion(int start, int end, Color colour) {
     this.start = start;
     this.end = end;
-    this.colour = colour;
+    this.colour = Objects.requireNonNull(colour, "colour must not be null");
   }
 
   public int start() {
@@ -34,16 +34,24 @@ public final class HighlightRegion {
 
   @Override
   public boolean equals(Object obj) {
-    if (obj == this) return true;
-    if (obj == null || obj.getClass() != this.getClass()) return false;
-    var that = (HighlightRegion) obj;
-    return this.start == that.start
-        && this.end == that.end
-        && Objects.equals(this.colour, that.colour);
+    if (this == obj) {
+      return true;
+    }
+
+    if (!(obj instanceof HighlightRegion that)) {
+      return false;
+    }
+
+    return start == that.start && end == that.end && Objects.equals(colour, that.colour);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(start, end, colour);
+  }
+
+  @Override
+  public String toString() {
+    return "HighlightRegion{" + "start=" + start + ", end=" + end + ", colour=" + colour + '}';
   }
 }
